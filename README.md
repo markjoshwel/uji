@@ -11,25 +11,40 @@ that is as follows:
 > based on my feelings OF USELESSNES and being liability at werk
 
 <https://twitter.com/fewstufff/status/1790129630503919748> \
-<https://twitter.com/fewstufff/status/1791133555340247277>
+<https://twitter.com/fewstufff/status/1791133555340247277> \
+<https://twitter.com/fewstufff/status/1791203693934555284>
 
 botched together after also wanting to have something that bugs me every 18 minutes \
 (and after needing an excuse to pick up kotlin and jetpack compose)
 
 - [x] icon
 - [x] basic application
-- [ ] reoccurring notifications
+- [x] reoccurring notifications
 - [ ] adaptive icon
 - [ ] ui
 
 ## credits and love
 
-vector uji head icon by me \
-character idea and design by fewstuff \
-notification messages from posts by [fewstuff](https://twitter.com/fewstufff/status/1791133555340247277),
-[mafuyunaa](https://twitter.com/mafuyunaa/status/1790460882352316805)
-and [0iichi](https://twitter.com/0iichi/status/1790910083154481508) \
-kaomojis ripped out of windows 11's clipboard
+- character idea and design by [fewstuff](https://twitter.com/fewstufff/)
+- notification messages from posts
+  by [fewstuff](https://twitter.com/fewstufff/status/1791133555340247277),
+  [mafuyunaa](https://twitter.com/mafuyunaa/status/1790460882352316805)
+  and [0iichi](https://twitter.com/0iichi/status/1790910083154481508)
+- [vector uji head icon](des/) by me
+- kaomojis ripped out of windows 11's clipboard
+
+## technical deets
+
+- **ui** \
+  [jetpack compose](https://developer.android.com/develop/ui/compose) +
+  [material 3](https://developer.android.com/develop/ui/compose/designsystems/material3)
+
+- **state storage** \
+  [jetpack proto datastore](https://developer.android.com/topic/libraries/architecture/datastore)
+
+that's it
+
+> she is not interesting in any fun way like that
 
 ## licence
 
