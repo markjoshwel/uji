@@ -1,10 +1,15 @@
-package co.joshwel.uji
+package co.joshwel.uji.uselessness
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import java.time.ZoneId
+
+interface UselessSchedulerInterface {
+    fun dispatch(announcement: UselessAnnouncement)
+    fun destroy(announcement: UselessAnnouncement)
+}
 
 class UselessScheduler(
     private val context: Context
@@ -14,9 +19,7 @@ class UselessScheduler(
 
     override fun dispatch(announcement: UselessAnnouncement) {
         // ask for perms before anything
-        val intent = Intent(context, UselessReceiver::class.java).apply {
-            putExtra("EXTRA_MESSAGE", announcement.message)
-        }
+        val intent = Intent(context, UselessReceiver::class.java)
 
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
