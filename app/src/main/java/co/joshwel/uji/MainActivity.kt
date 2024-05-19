@@ -17,7 +17,9 @@ import co.joshwel.uji.uselessness.UselessScheduler
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-const val REQUEST_CODE_NOTIFICATION_PERMISSION = 123
+
+private const val TAG = "Uji"
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
     Text(
-        text = "Uji", modifier = modifier
+        text = UjiCommons.APP_NAME, modifier = modifier
     )
 }

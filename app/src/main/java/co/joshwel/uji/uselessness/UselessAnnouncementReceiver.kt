@@ -3,7 +3,12 @@ package co.joshwel.uji.uselessness
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import co.joshwel.uji.NotificationMailman
+import co.joshwel.uji.UjiCommons
+
+
+private const val TAG = "UselessAnnouncementReceiver"
 
 val kaomojis = arrayOf(
     "ヾ(≧▽≦*)o",
@@ -51,14 +56,28 @@ val messages = arrayOf(
 )
 
 
-class UselessReceiver : BroadcastReceiver() {
+class UselessAnnouncementReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
+        // null checks
+        if (intent == null) {
+            Log.e(TAG, "received null intent")
+            return
+        }
         if (context == null) {
-            println("UselessReceiver.onReceive: received real intent but null context (potentially unreachable?)")
+            Log.e(TAG, "received null context")
             return
         }
 
-        println("UselessReceiver.onReceive: received uji's useless announcement")
+        // security check (is this us?)
+        if (intent.action != UjiCommons.NOTIFICATION_ACTION) {
+            Log.e(TAG, "received something not from us")
+            Log.e(TAG, "... intent.action=${intent.action}")
+            Log.e(TAG, "... context=${context}")
+            Log.e(TAG, "... intent=${intent}")
+            return
+        }
+
+        Log.d(TAG, "received uji's useless announcement")
 
         val mailman = NotificationMailman(context)
         mailman.sendNotification(mailman.buildNotification("${messages.random()} ${kaomojis.random()}"))

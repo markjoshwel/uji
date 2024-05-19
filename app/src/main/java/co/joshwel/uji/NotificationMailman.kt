@@ -9,20 +9,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import co.joshwel.uji.NotificationMailmanInterface.Companion.buildNotificationStatic
-import co.joshwel.uji.uselessness.UselessReceiver
+import co.joshwel.uji.uselessness.UselessAnnouncementReceiver
 
-const val NOTIFICATION_ID = 1
-const val CHANNEL_ID = "uji"
 
-val channel = NotificationChannel(
-    CHANNEL_ID, "Uji's Announcements", NotificationManager.IMPORTANCE_HIGH
+private const val TAG = "NotificationMailman"
+private val channel = NotificationChannel(
+    UjiCommons.CHANNEL_ID,
+    UjiCommons.CHANNEL_NAME,
+    NotificationManager.IMPORTANCE_HIGH,
 ).apply {
-    description = "Uji's USELESS announcements"
+    description = UjiCommons.CHANNEL_DESCRIPTION
 }
+
 
 interface NotificationMailmanInterface {
     fun areNotificationsEnabled(): Boolean
@@ -31,18 +34,20 @@ interface NotificationMailmanInterface {
     fun sendNotification(notification: Notification): Boolean
 
     companion object {
-        fun buildNotificationStatic(
-            context: Context, message: String, requestCode: Int = 0
-        ): Notification {
-            val notificationIntent = Intent(context, UselessReceiver::class.java)
+        fun buildNotificationStatic(context: Context, message: String): Notification {
+            val notificationIntent = Intent(context, UselessAnnouncementReceiver::class.java)
+
             val notificationPendingIntent = PendingIntent.getActivity(
-                context, requestCode, notificationIntent, PendingIntent.FLAG_IMMUTABLE
+                context,
+                UjiCommons.NOTIFICATION_REQUEST_CODE,
+                notificationIntent,
+                PendingIntent.FLAG_IMMUTABLE
             )
 
-            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            val builder = NotificationCompat.Builder(context, UjiCommons.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 // .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("Uji").setContentText(message)
+                .setContentTitle(UjiCommons.NOTIFICATION_TITLE).setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             builder.setContentIntent(notificationPendingIntent)
@@ -52,9 +57,7 @@ interface NotificationMailmanInterface {
     }
 }
 
-class NotificationMailman(
-    private val context: Context
-) : NotificationMailmanInterface {
+class NotificationMailman(private val context: Context) : NotificationMailmanInterface {
     private var notificationManager: NotificationManager? = null
 
     init {
@@ -69,16 +72,16 @@ class NotificationMailman(
 
     override fun requestPermission(activity: MainActivity) {
         if (!areNotificationsEnabled()) {
-            println("NotificationMailman.requestPermission: granting")
+            Log.d(TAG, "requesting for perms")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    REQUEST_CODE_NOTIFICATION_PERMISSION
+                    UjiCommons.NOTIFICATION_REQUEST_CODE
                 )
             }
         } else {
-            println("NotificationMailman.requestPermission: not doing anything, perms already granted")
+            Log.d(TAG, "not doing anything, perms already granted")
         }
     }
 
@@ -99,7 +102,7 @@ class NotificationMailman(
                 return false
             }
 
-            notify(NOTIFICATION_ID, notification)
+            notify(UjiCommons.NOTIFICATION_ID, notification)
         }
 
         return true

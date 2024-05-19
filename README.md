@@ -19,9 +19,16 @@ botched together after also wanting to have something that bugs me every 18 minu
 
 - [x] icon
 - [x] basic application
-- [x] reoccurring notifications
-- [ ] adaptive icon
-- [ ] ui
+  - [x] reoccurring notifications  
+    (UselessAnnouncement, UselessScheduler, UselessAnnouncementReceiver, NotificationMailman)
+  - [ ] turning on and off alarms  
+    (NotificationMailman, StateManager)
+  - [ ] resuming alarm on boot  
+    (UselessStartupReceiver)
+    - [x] after unlock
+    - [ ] before unlock
+  - [ ] adaptive icon
+  - [ ] ui
 
 ## credits and love
 
