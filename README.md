@@ -2,7 +2,7 @@
 
 ![uji icon](des/icon-colour@2x.png)
 
-a silly app that just sends you a high priority notification every 18 minutes
+a silly android (8.0+) app that just sends you a high priority notification every 18 minutes
 
 based and named after [fewstuff](https://twitter.com/fewstufff/)'s original character
 that is as follows:
@@ -25,8 +25,6 @@ botched together after also wanting to have something that bugs me every 18 minu
     (NotificationMailman, StateManager)
   - [ ] resuming alarm on boot  
     (UselessStartupReceiver)
-    - [x] after unlock
-    - [ ] before unlock
   - [ ] adaptive icon
   - [ ] ui
 
@@ -48,6 +46,8 @@ botched together after also wanting to have something that bugs me every 18 minu
 
 - **state storage** \
   [jetpack proto datastore](https://developer.android.com/topic/libraries/architecture/datastore)
+
+- is [**direct boot**](https://developer.android.com/privacy-and-security/direct-boot) aware
 
 that's it
 
