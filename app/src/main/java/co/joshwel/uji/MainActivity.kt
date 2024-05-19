@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.joshwel.uji.ui.theme.UjiTheme
-import co.joshwel.uji.uselessness.UselessAnnouncement
 import co.joshwel.uji.uselessness.UselessScheduler
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -26,17 +25,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        var ujiIsEnabled = true
-
         // make scheduler and check for notification perms
         val scheduler = UselessScheduler(this)
         val mailman = NotificationMailman(this)
         mailman.requestPermission(this)
 
         if (mailman.areNotificationsEnabled()) {
-            UselessAnnouncement(
-                LocalDateTime.now(ZoneId.systemDefault()),
-            ).apply { scheduler.dispatch(this) }
+            scheduler.dispatch(LocalDateTime.now(ZoneId.systemDefault()))
         }
 
         setContent {

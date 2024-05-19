@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import co.joshwel.uji.UjiCommons
+import java.time.LocalDateTime
 import java.time.ZoneId
 
 
@@ -13,22 +14,22 @@ private const val TAG = "UselessScheduler"
 
 
 interface UselessSchedulerInterface {
-    fun dispatch(announcement: UselessAnnouncement)
-    fun destroy(announcement: UselessAnnouncement)
+    fun dispatch(time: LocalDateTime)
+    fun destroy()
 }
 
 
 class UselessScheduler(private val context: Context) : UselessSchedulerInterface {
     private val alarmManager = context.getSystemService(AlarmManager::class.java)
 
-    override fun dispatch(announcement: UselessAnnouncement) {
+    override fun dispatch(time: LocalDateTime) {
         val intent = Intent(context, UselessAnnouncementReceiver::class.java).apply {
             setAction(UjiCommons.NOTIFICATION_ACTION)
         }
 
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            announcement.time.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000,
+            time.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000,
             UjiCommons.NOTIFICATION_INTERVAL,
             PendingIntent.getBroadcast(
                 context,
@@ -41,7 +42,7 @@ class UselessScheduler(private val context: Context) : UselessSchedulerInterface
         Log.d(TAG, "successfully dispatched")
     }
 
-    override fun destroy(announcement: UselessAnnouncement) {
+    override fun destroy() {
         alarmManager.cancel(
             PendingIntent.getBroadcast(
                 context,
