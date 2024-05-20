@@ -27,6 +27,7 @@ botched together after also wanting to have something that bugs me every 18 minu
     (UselessStartupReceiver)
   - [ ] adaptive icon
   - [ ] ui
+  - [ ] quick settings tile
 
 ## credits and love
 
