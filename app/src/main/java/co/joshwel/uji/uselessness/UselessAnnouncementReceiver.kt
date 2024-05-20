@@ -8,7 +8,7 @@ import co.joshwel.uji.NotificationMailman
 import co.joshwel.uji.UjiCommons
 
 
-private const val TAG = "UselessAnnouncementReceiver"
+private const val TAG = "UselessAnnReceiver"
 
 val kaomojis = arrayOf(
     "ヾ(≧▽≦*)o",
